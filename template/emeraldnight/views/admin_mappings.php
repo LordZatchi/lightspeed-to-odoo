@@ -35,11 +35,14 @@
                             <td><?= htmlspecialchars($m['name']) ?></td>
                             <td><?= htmlspecialchars($m['created_at']) ?></td>
                             <td>
+                                <!-- ✏ Modifier -->
+                                <a href="edit_mapping.php?id=<?= $m['id'] ?>"><?= $lang->get('mapping_edit') ?></a> |
                                 <!-- 🗑 Supprimer -->
                                 <a href="?delete=<?= $m['id'] ?>" onclick="return confirm('<?= $lang->get('mapping_confirm_delete') ?>');">
                                     <?= $lang->get('mapping_delete') ?>
                                 </a>
                             </td>
+
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

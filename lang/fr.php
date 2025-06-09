@@ -145,5 +145,15 @@ return [
     'mapping_delete' => 'Supprimer',
     'mapping_deleted' => 'Modèle supprimé avec succès.',
     'mapping_confirm_delete' => 'Confirmer la suppression de ce mapping ?',
+    'mapping_saved_success' => 'Modèle de mapping enregistré avec succès.',
+
+    // MAPPING - ÉDITION
+    'mapping_edit_title' => 'Modifier le modèle',
+    'mapping_no_columns' => 'Aucune colonne CSV enregistrée pour ce mapping.',
+    'mapping_ignore' => 'Ignorer',
+    'mapping_not_found' => 'Modèle introuvable.',
+    'mapping_invalid_id' => 'ID de mapping invalide.',
+    'back' => 'Retour',
+    'mapping_edit' => 'Modifier',
 
 ];

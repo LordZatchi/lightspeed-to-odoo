@@ -145,5 +145,15 @@ return [
     'mapping_delete' => 'Delete',
     'mapping_deleted' => 'Mapping deleted successfully.',
     'mapping_confirm_delete' => 'Confirm deletion of this mapping?',
+    'mapping_saved_success' => 'Mapping model saved successfully.',
+
+    // MAPPING - EDIT
+    'mapping_edit_title' => 'Edit Mapping',
+    'mapping_no_columns' => 'No CSV columns recorded for this mapping.',
+    'mapping_ignore' => 'Ignore',
+    'mapping_not_found' => 'Mapping not found.',
+    'mapping_invalid_id' => 'Invalid mapping ID.',
+    'back' => 'Back',
+    'mapping_edit' => 'Edit',
 
 ];

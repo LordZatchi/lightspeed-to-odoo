@@ -32,9 +32,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['csv_file'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mapping']) && isset($_POST['mapping_name'])) {
     $mapping = $_POST['mapping'];
     $name = trim($_POST['mapping_name']);
+    $csv_columns = array_keys($mapping);
 
-    $stmt = $pdo->prepare("INSERT INTO mappings (name, data, created_at) VALUES (?, ?, NOW())");
-    $stmt->execute([$name, json_encode($mapping, JSON_UNESCAPED_UNICODE)]);
+    $stmt = $pdo->prepare("INSERT INTO mappings (name, data, csv_columns, created_at) VALUES (?, ?, ?, NOW())");
+    $stmt->execute([
+        $name,
+        json_encode($mapping, JSON_UNESCAPED_UNICODE),
+        json_encode($csv_columns, JSON_UNESCAPED_UNICODE)
+    ]);
     $message = $lang->get('mapping_saved_success');
 }
 

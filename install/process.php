@@ -97,6 +97,7 @@ $pdo->exec("
         id INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(100) NOT NULL,
         data TEXT NOT NULL,
+        csv_columns TEXT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
 ");
