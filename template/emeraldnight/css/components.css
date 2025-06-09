@@ -1,0 +1,119 @@
+/* === Composants EmeraldNight — Styles communs + installation === */
+
+/* Boutons par défaut */
+button {
+    background-color: #34d399;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    color: white;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: #10b981;
+}
+
+/* === Composant : conteneur page d'installation === */
+.install-container {
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background-color: #1f2937;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    color: #f9fafb;
+}
+
+.install-container h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #34d399;
+}
+
+/* === Formulaire === */
+.install-container fieldset {
+    border: 1px solid #374151;
+    border-radius: 8px;
+    padding: 1.2rem;
+    margin-bottom: 1.5rem;
+    background-color: #111827;
+}
+
+.install-container legend {
+    font-weight: bold;
+    color: #f3f4f6;
+    padding: 0 0.5rem;
+}
+
+.install-container label {
+    display: block;
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+}
+
+.install-container input[type="text"],
+.install-container input[type="email"],
+.install-container input[type="password"],
+.install-container input[type="file"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.3rem;
+    border: 1px solid #4b5563;
+    border-radius: 4px;
+    background-color: #1f2937;
+    color: #f9fafb;
+}
+
+/* === Choix du thème === */
+.theme-selector {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.theme-selector label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #374151;
+    border-radius: 8px;
+    padding: 0.5rem;
+    background-color: #1f2937;
+    cursor: pointer;
+    transition: border 0.2s ease;
+}
+
+.theme-selector label:hover {
+    border-color: #10b981;
+}
+
+.theme-selector img {
+    max-width: 120px;
+    height: auto;
+    margin-bottom: 0.3rem;
+    border-radius: 4px;
+}
+
+/* === Boutons formulaire === */
+.install-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+}
+
+.install-actions button {
+    background-color: #34d399;
+}
+
+.install-actions button:hover {
+    background-color: #10b981;
+}
+
+#install-status {
+    margin-top: 1rem;
+    font-weight: bold;
+}
