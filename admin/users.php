@@ -8,7 +8,7 @@ require_once __DIR__ . '/../includes/Lang.php';
 
 Guard::admin(); // accès réservé
 
-$lang = new Lang('fr');
+$lang = new Lang(); // ✅ utilise la langue dynamique (via settings.lang)
 $pdo = getPDO();
 $message = null;
 

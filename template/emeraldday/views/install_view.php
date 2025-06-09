@@ -1,6 +1,6 @@
 <!-- install_view.php — Vue d'installation complète (corrigée avec odoo_db) -->
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?= $lang->getLangCode() ?>">
 
 <head>
     <meta charset="UTF-8">

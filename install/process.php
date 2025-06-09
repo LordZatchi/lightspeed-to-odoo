@@ -2,7 +2,7 @@
 // install/process.php — Traite l'installation initiale et génère config + base
 
 require_once __DIR__ . '/../includes/Lang.php';
-$lang = new Lang('fr');
+$lang = new Lang(); // ✅ utilise la langue dynamique (via settings.lang)
 
 // Sécurité
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

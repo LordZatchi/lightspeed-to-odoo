@@ -1,6 +1,6 @@
 <!-- admin_users.php — Vue gestion des utilisateurs -->
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?= $lang->getLangCode() ?>">
 
 <head>
     <meta charset="UTF-8">

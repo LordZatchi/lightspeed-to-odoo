@@ -6,7 +6,7 @@ require_once __DIR__ . '/includes/Lang.php';
 require_once __DIR__ . '/includes/View.php';
 require_once __DIR__ . '/includes/auth.php';
 
-$lang = new Lang('fr');
+$lang = new Lang(); // ✅ utilise la langue dynamique (via settings.lang)
 $error = null;
 
 // Traitement du formulaire

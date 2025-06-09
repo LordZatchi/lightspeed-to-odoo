@@ -1,6 +1,6 @@
 <!-- home.php — Vue de base après installation -->
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?= $lang->getLangCode() ?>">
 
 <head>
     <meta charset="UTF-8">

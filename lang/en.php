@@ -1,6 +1,8 @@
 <?php
 // lang/en.php — English keys
 return [
+    '__lang_code' => 'en', // ou 'fr'
+
     'welcome_title' => 'Welcome to Lightspeed to Odoo',
     'welcome_message' => 'Please upload your CSV file to get started.',
 

@@ -4,7 +4,7 @@
 header('Content-Type: application/json');
 
 require_once __DIR__ . '/../includes/Lang.php';
-$lang = new Lang('fr');
+$lang = new Lang(); // ✅ utilise la langue dynamique (via settings.lang)
 
 // Vérification méthode POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

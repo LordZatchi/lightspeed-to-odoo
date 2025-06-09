@@ -1,6 +1,6 @@
 <!-- login.php — Vue du formulaire de connexion -->
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?= $lang->getLangCode() ?>">
 
 <head>
     <meta charset="UTF-8">

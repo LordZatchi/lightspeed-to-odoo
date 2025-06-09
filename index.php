@@ -11,7 +11,7 @@ if (!file_exists(__DIR__ . '/config.php')) {
 require_once __DIR__ . '/includes/View.php';
 require_once __DIR__ . '/includes/Lang.php';
 
-$lang = new Lang('fr');
+$lang = new Lang(); // ✅ utilise la langue dynamique (via settings.lang)
 
 View::render('home', [
     'title' => $lang->get('welcome_title'),

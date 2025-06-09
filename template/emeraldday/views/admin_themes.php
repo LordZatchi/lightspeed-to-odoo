@@ -1,6 +1,6 @@
 <!-- admin_themes.php — Vue sélection des thèmes -->
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?= $lang->getLangCode() ?>">
 
 <head>
     <meta charset="UTF-8">
