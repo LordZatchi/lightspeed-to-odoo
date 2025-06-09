@@ -35,4 +35,13 @@ return [
     'install_network_error' => 'A network error occurred.',
     'install_success' => '✅ Connections successful! You may now install.',
 
+    // AUTHENTICATION
+    'login_title' => 'Login',
+    'login_email' => 'Email address',
+    'login_password' => 'Password',
+    'login_submit' => 'Sign in',
+    'login_missing_fields' => 'Please fill in all fields.',
+    'login_invalid_credentials' => 'Invalid credentials.',
+    'login_error' => 'Login error',
+
 ];
