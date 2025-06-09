@@ -43,6 +43,21 @@
                     <?php endforeach; ?>
                 </tbody>
             </table>
+
+            <!-- 📄 Pagination -->
+            <div style="margin-top: 2rem; text-align: center;">
+                <?php if ($currentPage > 1): ?>
+                    <a href="?page=<?= $currentPage - 1 ?>"><?= $lang->get('pagination_prev') ?></a>
+                <?php endif; ?>
+
+                <span style="margin: 0 1rem;">
+                    <?= $lang->get('pagination_page') ?> <?= $currentPage ?> / <?= $totalPages ?>
+                </span>
+
+                <?php if ($currentPage < $totalPages): ?>
+                    <a href="?page=<?= $currentPage + 1 ?>"><?= $lang->get('pagination_next') ?></a>
+                <?php endif; ?>
+            </div>
         <?php endif; ?>
     </div>
 </body>

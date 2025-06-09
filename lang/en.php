@@ -132,5 +132,8 @@ return [
     'logs_message' => 'Message',
     'logs_import_message_success' => 'Import completed successfully.',
     'logs_import_message_error' => 'Import completed with errors.',
+    'pagination_prev' => '« Previous',
+    'pagination_next' => 'Next »',
+    'pagination_page' => 'Page',
 
 ];
