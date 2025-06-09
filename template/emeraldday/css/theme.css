@@ -1,0 +1,12 @@
+/* === theme.css — Variables ou styles spécifiques Emerald Day === */
+
+:root {
+    --background: #f1f5f9;
+    --background-secondary: #ffffff;
+    --background-tertiary: #f9fafb;
+    --text: #1e293b;
+    --text-bright: #0f172a;
+    --accent: #10b981;
+    --accent-hover: #059669;
+    --border: #cbd5e1;
+}

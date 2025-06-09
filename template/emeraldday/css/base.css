@@ -1,0 +1,14 @@
+/* === base.css — Style global de base pour Emerald Day === */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f1f5f9;
+    color: #111827;
+}
+a {
+    color: #10b981;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,10 @@
+/* === layout.css — Mise en page générale pour Emerald Day === */
+html, body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+main {
+    flex-grow: 1;
+    padding: 2rem;
+}

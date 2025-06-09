@@ -1,0 +1,16 @@
+/* === base.css — Styles de base EmeraldNight === */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #0f172a;
+    color: #f1f5f9;
+}
+
+a {
+    color: #34d399;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

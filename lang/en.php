@@ -61,4 +61,10 @@ return [
     'users_confirm_delete' => 'Delete this user?',
     'users_self' => 'Your account',
 
+    // THEMES
+    'theme_title' => 'Theme selection',
+    'theme_submit' => 'Save theme',
+    'theme_changed' => 'Theme successfully changed.',
+    'theme_invalid' => 'Invalid theme selected.',
+
 ];

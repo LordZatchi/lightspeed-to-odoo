@@ -61,4 +61,10 @@ return [
     'users_confirm_delete' => 'Supprimer cet utilisateur ?',
     'users_self' => 'Vous-même',
 
+    // THEMES
+    'theme_title' => 'Choix du thème',
+    'theme_submit' => 'Enregistrer le thème',
+    'theme_changed' => 'Le thème a bien été changé.',
+    'theme_invalid' => 'Thème sélectionné invalide.',
+
 ];

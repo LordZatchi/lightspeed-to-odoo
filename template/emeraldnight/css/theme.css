@@ -1,0 +1,12 @@
+/* === theme.css — Variables CSS pour EmeraldNight === */
+
+:root {
+    --background: #0f172a;
+    --background-secondary: #1e293b;
+    --background-tertiary: #111827;
+    --text: #f1f5f9;
+    --text-bright: #ffffff;
+    --accent: #34d399;
+    --accent-hover: #10b981;
+    --border: #374151;
+}

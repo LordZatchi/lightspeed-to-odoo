@@ -1,0 +1,96 @@
+/* === components.css — Composants de formulaire et affichage pour Emerald Day === */
+
+.install-container {
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.install-container h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #0f172a;
+}
+
+.install-container form fieldset {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1.2rem;
+    margin-bottom: 1.5rem;
+    background-color: #f9fafb;
+}
+
+.install-container legend {
+    font-weight: bold;
+    color: #1e293b;
+}
+
+.install-container label {
+    display: block;
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+}
+
+.install-container input,
+.install-container select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.3rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    background-color: #ffffff;
+    color: #0f172a;
+}
+
+.theme-selector {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.theme-selector label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 0.5rem;
+    cursor: pointer;
+    background-color: #ffffff;
+    transition: border 0.2s ease;
+}
+
+.theme-selector label:hover {
+    border-color: #10b981;
+}
+
+.theme-selector img {
+    max-width: 120px;
+    height: auto;
+    margin-bottom: 0.3rem;
+    border-radius: 4px;
+}
+
+.install-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+}
+
+.install-actions button {
+    background-color: #10b981;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.install-actions button:hover {
+    background-color: #059669;
+}
