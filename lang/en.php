@@ -69,4 +69,38 @@ return [
     'theme_changed' => 'Theme successfully changed.',
     'theme_invalid' => 'Invalid theme selected.',
 
+    // IMPORT ADMIN
+    'import_title' => 'CSV Import - Administration',
+    'import_upload_label' => 'CSV file to import',
+    'import_upload_button' => 'Analyze file',
+    'import_success' => 'File successfully uploaded.',
+    'import_failed' => 'Failed to upload the file.',
+    'import_columns_title' => 'Columns detected in the file',
+    'mapping_saved' => 'Mapping model saved successfully.',
+    'mapping_invalid' => 'Invalid or incomplete mapping model.',
+    'mapping_save_button' => 'Save mapping',
+    'mapping_name_label' => 'Mapping model name',
+
+    // ODOO FIELD TRANSLATIONS
+    'odoo_field_name' => 'Product Name',
+    'odoo_field_default_code' => 'Internal Reference',
+    'odoo_field_barcode' => 'Barcode',
+    'odoo_field_list_price' => 'Sales Price',
+    'odoo_field_standard_price' => 'Cost',
+    'odoo_field_type' => 'Product Type',
+    'odoo_field_categ_id' => 'Category',
+    'odoo_field_pos_categ_id' => 'POS Category',
+    'odoo_field_available_in_pos' => 'Available in POS',
+    'odoo_field_to_weight' => 'Weighable',
+    'odoo_field_taxes_id' => 'Customer Taxes',
+    'odoo_field_supplier_taxes_id' => 'Vendor Taxes',
+    'odoo_field_uom_id' => 'Unit of Measure',
+    'odoo_field_uom_po_id' => 'Purchase Unit',
+    'odoo_field_description' => 'Internal Description',
+    'odoo_field_description_sale' => 'Sale Description',
+    'odoo_field_description_purchase' => 'Purchase Description',
+    'odoo_field_image_1920' => 'Main Image',
+    'odoo_field_tracking' => 'Lot Tracking',
+    'odoo_field_detailed_type' => 'Simplified Type',
+
 ];

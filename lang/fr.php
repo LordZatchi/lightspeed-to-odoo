@@ -69,4 +69,38 @@ return [
     'theme_changed' => 'Le thème a bien été changé.',
     'theme_invalid' => 'Thème sélectionné invalide.',
 
+    // IMPORT ADMIN
+    'import_title' => 'Import CSV - Administration',
+    'import_upload_label' => 'Fichier CSV à importer',
+    'import_upload_button' => 'Analyser le fichier',
+    'import_success' => 'Fichier importé avec succès.',
+    'import_failed' => 'Échec de l\'upload du fichier.',
+    'import_columns_title' => 'Colonnes détectées dans le fichier',
+    'mapping_saved' => 'Modèle de mapping enregistré avec succès.',
+    'mapping_invalid' => 'Modèle de mapping invalide ou incomplet.',
+    'mapping_save_button' => 'Enregistrer le mapping',
+    'mapping_name_label' => 'Nom du modèle de mapping',
+
+    // TRADUCTION DES CHAMPS ODOO
+    'odoo_field_name' => 'Nom du produit',
+    'odoo_field_default_code' => 'Référence interne',
+    'odoo_field_barcode' => 'Code-barres',
+    'odoo_field_list_price' => 'Prix de vente',
+    'odoo_field_standard_price' => 'Coût',
+    'odoo_field_type' => 'Type de produit',
+    'odoo_field_categ_id' => 'Catégorie',
+    'odoo_field_pos_categ_id' => 'Catégorie POS',
+    'odoo_field_available_in_pos' => 'Disponible au POS',
+    'odoo_field_to_weight' => 'À peser',
+    'odoo_field_taxes_id' => 'Taxes client',
+    'odoo_field_supplier_taxes_id' => 'Taxes fournisseur',
+    'odoo_field_uom_id' => 'Unité de mesure',
+    'odoo_field_uom_po_id' => 'Unité d’achat',
+    'odoo_field_description' => 'Description interne',
+    'odoo_field_description_sale' => 'Description vente',
+    'odoo_field_description_purchase' => 'Description achat',
+    'odoo_field_image_1920' => 'Image principale',
+    'odoo_field_tracking' => 'Suivi par lot',
+    'odoo_field_detailed_type' => 'Type simplifié',
+
 ];

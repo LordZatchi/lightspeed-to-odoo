@@ -85,6 +85,16 @@ $pdo->exec("
     );
 ");
 
+// Table de stockage des modèles de mapping CSV ↔ Odoo
+$pdo->exec("
+    CREATE TABLE IF NOT EXISTS mappings (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(100) NOT NULL,
+        data TEXT NOT NULL,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+");
+
 // Insertion de l'admin
 $hash = password_hash($admin_pass, PASSWORD_DEFAULT);
 
@@ -114,6 +124,10 @@ if (!empty($_FILES['site_logo']['tmp_name'])) {
     }
     move_uploaded_file($_FILES['site_logo']['tmp_name'], __DIR__ . '/../uploads/logo.png');
 }
+
+// Définition de la langue par défaut ('fr') dans les paramètres globaux
+$stmt = $pdo->prepare("INSERT INTO settings (`key`, `value`) VALUES (?, ?) ON DUPLICATE KEY UPDATE value = VALUES(value)");
+$stmt->execute(['lang', 'fr']);
 
 // Fin
 header('Location: ../index.php');
