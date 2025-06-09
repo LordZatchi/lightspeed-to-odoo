@@ -44,4 +44,21 @@ return [
     'login_invalid_credentials' => 'Invalid credentials.',
     'login_error' => 'Login error',
 
+    // USERS
+    'users_title' => 'User management',
+    'users_email' => 'Email address',
+    'users_password' => 'Password',
+    'users_role' => 'Role',
+    'users_role_user' => 'User',
+    'users_role_admin' => 'Administrator',
+    'users_add_button' => 'Add user',
+    'users_add_success' => 'User successfully added.',
+    'users_add_exists' => 'This user already exists.',
+    'users_add_error' => 'Invalid or incomplete fields.',
+    'users_actions' => 'Actions',
+    'users_delete_button' => 'Delete',
+    'users_deleted' => 'User deleted.',
+    'users_confirm_delete' => 'Delete this user?',
+    'users_self' => 'Your account',
+
 ];

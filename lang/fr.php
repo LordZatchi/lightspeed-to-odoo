@@ -44,4 +44,21 @@ return [
     'login_invalid_credentials' => 'Identifiants invalides.',
     'login_error' => 'Erreur lors de la connexion',
 
+    // UTILISATEURS
+    'users_title' => 'Gestion des utilisateurs',
+    'users_email' => 'Adresse e-mail',
+    'users_password' => 'Mot de passe',
+    'users_role' => 'Rôle',
+    'users_role_user' => 'Utilisateur',
+    'users_role_admin' => 'Administrateur',
+    'users_add_button' => 'Ajouter l\'utilisateur',
+    'users_add_success' => 'Utilisateur ajouté avec succès.',
+    'users_add_exists' => 'Cet utilisateur existe déjà.',
+    'users_add_error' => 'Champs invalides ou incomplets.',
+    'users_actions' => 'Actions',
+    'users_delete_button' => 'Supprimer',
+    'users_deleted' => 'Utilisateur supprimé.',
+    'users_confirm_delete' => 'Supprimer cet utilisateur ?',
+    'users_self' => 'Vous-même',
+
 ];
