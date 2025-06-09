@@ -1,0 +1,27 @@
+# 🔒 Fichier de configuration local
+config.php
+
+# 📂 Répertoire de fichiers uploadés
+/uploads/
+
+# 🗂️ Répertoires système potentiels
+/vendor/
+node_modules/
+
+# 🧪 Fichiers temporaires ou de test
+*.log
+*.bak
+*.tmp
+*.swp
+*.DS_Store
+*.idea/
+*.vscode/
+
+# 🚫 Fichiers de cache
+.cache/
+.cache/*
+.cache*
+
+# 🔧 Fichiers système Unix/Windows
+Thumbs.db
+desktop.ini
