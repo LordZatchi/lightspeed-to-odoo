@@ -88,7 +88,6 @@ return [
     'import_row' => 'Ligne',
     'import_mapping_not_found' => 'Mapping introuvable ou invalide.',
 
-
     // TRADUCTION DES CHAMPS ODOO
     'odoo_field_name' => 'Nom du produit',
     'odoo_field_default_code' => 'Référence interne',
@@ -111,11 +110,15 @@ return [
     'odoo_field_tracking' => 'Suivi par lot',
     'odoo_field_detailed_type' => 'Type simplifié',
 
-    // Odoo
+    // ODOO
     'odoo_config_missing' => 'Fichier de configuration Odoo manquant.',
     'odoo_config_incomplete' => 'Paramètres de connexion Odoo incomplets.',
     'odoo_auth_failed' => 'Échec de l\'authentification auprès d\'Odoo.',
     'odoo_create_success' => 'Produit créé avec succès',
     'odoo_create_unknown_error' => 'Erreur inconnue lors de la création du produit.',
+
+    // IMPORT / MAPPING / CSV - UTILISATEUR
+    'import_user_title' => 'Import CSV - Utilisateur',
+    'no_mapping_available' => 'Aucun modèle de mapping n\'est disponible pour le moment.',
 
 ];

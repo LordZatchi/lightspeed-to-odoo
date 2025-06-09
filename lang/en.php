@@ -110,11 +110,15 @@ return [
     'odoo_field_tracking' => 'Lot Tracking',
     'odoo_field_detailed_type' => 'Simplified Type',
 
-    // Odoo
+    // ODOO
     'odoo_config_missing' => 'Missing Odoo configuration file.',
     'odoo_config_incomplete' => 'Incomplete Odoo connection settings.',
     'odoo_auth_failed' => 'Failed to authenticate with Odoo.',
     'odoo_create_success' => 'Product created successfully',
     'odoo_create_unknown_error' => 'Unknown error occurred during product creation.',
+
+    // IMPORT / MAPPING / CSV - USER
+    'import_user_title' => 'CSV Import - User',
+    'no_mapping_available' => 'No mapping model is currently available.',
 
 ];
