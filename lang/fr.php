@@ -80,6 +80,14 @@ return [
     'mapping_invalid' => 'Modèle de mapping invalide ou incomplet.',
     'mapping_save_button' => 'Enregistrer le mapping',
     'mapping_name_label' => 'Nom du modèle de mapping',
+    'import_real_title' => 'Importer un fichier vers Odoo',
+    'import_real_mapping_label' => 'Modèle de mapping à utiliser',
+    'choose_mapping' => '— Sélectionner un mapping —',
+    'import_real_button' => 'Lancer l\'import vers Odoo',
+    'import_results_title' => 'Résultats de l\'import',
+    'import_row' => 'Ligne',
+    'import_mapping_not_found' => 'Mapping introuvable ou invalide.',
+
 
     // TRADUCTION DES CHAMPS ODOO
     'odoo_field_name' => 'Nom du produit',
@@ -102,5 +110,12 @@ return [
     'odoo_field_image_1920' => 'Image principale',
     'odoo_field_tracking' => 'Suivi par lot',
     'odoo_field_detailed_type' => 'Type simplifié',
+
+    // Odoo
+    'odoo_config_missing' => 'Fichier de configuration Odoo manquant.',
+    'odoo_config_incomplete' => 'Paramètres de connexion Odoo incomplets.',
+    'odoo_auth_failed' => 'Échec de l\'authentification auprès d\'Odoo.',
+    'odoo_create_success' => 'Produit créé avec succès',
+    'odoo_create_unknown_error' => 'Erreur inconnue lors de la création du produit.',
 
 ];

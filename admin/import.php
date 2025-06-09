@@ -56,15 +56,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mapping']) && isset($
     $columns = [];
 }
 
+// 📋 Récupération des mappings existants
+$stmt = $pdo->query("SELECT id, name FROM mappings ORDER BY created_at DESC");
+$availableMappings = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// 📥 Traitement d’un import réel
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['import_real']) && isset($_FILES['csv_real_file'])) {
+    $mappingId = (int) ($_POST['selected_mapping'] ?? 0);
+    $mappingStmt = $pdo->prepare("SELECT data FROM mappings WHERE id = ?");
+    $mappingStmt->execute([$mappingId]);
+    $mappingData = $mappingStmt->fetchColumn();
+
+    if (!$mappingData) {
+        $message = $lang->get('import_mapping_not_found');
+    } else {
+        $mapping = json_decode($mappingData, true);
+
+        // Traitement du fichier
+        $tmpName = $_FILES['csv_real_file']['tmp_name'];
+        if (($handle = fopen($tmpName, 'r')) !== false) {
+            $headers = fgetcsv($handle, 1000, ';');
+            $results = [];
+
+            require_once __DIR__ . '/../includes/odoo.php';
+
+            while (($row = fgetcsv($handle, 1000, ';')) !== false) {
+                $data = [];
+                foreach ($headers as $index => $columnName) {
+                    $odooField = $mapping[$columnName] ?? null;
+                    if ($odooField && isset($row[$index])) {
+                        $data[$odooField] = $row[$index];
+                    }
+                }
+
+                // Envoi vers Odoo
+                $result = sendToOdoo($data, $lang);
+                $results[] = $result;
+            }
+            fclose($handle);
+        }
+    }
+}
+
 // 🔁 Chargement des champs mappables Odoo
 $odoo_fields = include __DIR__ . '/../includes/odoo_fields.php';
 
-// 👁 Affichage de la vue
 View::render('admin_import', [
     'title' => $lang->get('import_title'),
     'message' => $message,
     'columns' => $columns,
     'filename' => $filename,
     'odoo_fields' => $odoo_fields,
+    'availableMappings' => $availableMappings,
+    'results' => $results ?? [],
     'lang' => $lang
 ]);

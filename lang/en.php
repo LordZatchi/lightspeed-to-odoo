@@ -80,6 +80,13 @@ return [
     'mapping_invalid' => 'Invalid or incomplete mapping model.',
     'mapping_save_button' => 'Save mapping',
     'mapping_name_label' => 'Mapping model name',
+    'import_real_title' => 'Import file into Odoo',
+    'import_real_mapping_label' => 'Mapping model to use',
+    'choose_mapping' => '— Select a mapping —',
+    'import_real_button' => 'Import into Odoo',
+    'import_results_title' => 'Import results',
+    'import_row' => 'Row',
+    'import_mapping_not_found' => 'Mapping not found or invalid.',
 
     // ODOO FIELD TRANSLATIONS
     'odoo_field_name' => 'Product Name',
@@ -102,5 +109,12 @@ return [
     'odoo_field_image_1920' => 'Main Image',
     'odoo_field_tracking' => 'Lot Tracking',
     'odoo_field_detailed_type' => 'Simplified Type',
+
+    // Odoo
+    'odoo_config_missing' => 'Missing Odoo configuration file.',
+    'odoo_config_incomplete' => 'Incomplete Odoo connection settings.',
+    'odoo_auth_failed' => 'Failed to authenticate with Odoo.',
+    'odoo_create_success' => 'Product created successfully',
+    'odoo_create_unknown_error' => 'Unknown error occurred during product creation.',
 
 ];

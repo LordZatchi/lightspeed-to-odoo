@@ -1,4 +1,3 @@
-<!-- admin_import.php — Vue admin avec mapping dynamique -->
 <!DOCTYPE html>
 <html lang="<?= $lang->getLangCode() ?>">
 
@@ -19,7 +18,7 @@
             <p style="color: green; font-weight: bold;"><?= htmlspecialchars($message) ?></p>
         <?php endif; ?>
 
-        <!-- Upload CSV -->
+        <!-- 📥 Upload fichier CSV -->
         <form method="post" enctype="multipart/form-data" style="margin-bottom: 2rem;">
             <label><?= $lang->get('import_upload_label') ?> :
                 <input type="file" name="csv_file" accept=".csv" required>
@@ -27,7 +26,7 @@
             <button type="submit"><?= $lang->get('import_upload_button') ?></button>
         </form>
 
-        <!-- Mapping dynamique -->
+        <!-- 🧩 Mapping CSV vers Odoo -->
         <?php if (!empty($columns)): ?>
             <hr>
             <h2><?= $lang->get('import_columns_title') ?></h2>
@@ -69,6 +68,44 @@
                     <button type="submit"><?= $lang->get('mapping_save_button') ?></button>
                 </div>
             </form>
+        <?php endif; ?>
+
+        <!-- 🔁 Import réel vers Odoo -->
+        <?php if (!empty($availableMappings)): ?>
+            <hr>
+            <h2><?= $lang->get('import_real_title') ?></h2>
+
+            <form method="post" enctype="multipart/form-data">
+                <label><?= $lang->get('import_real_mapping_label') ?> :
+                    <select name="selected_mapping" required>
+                        <option value=""><?= $lang->get('choose_mapping') ?></option>
+                        <?php foreach ($availableMappings as $m): ?>
+                            <option value="<?= $m['id'] ?>">
+                                <?= htmlspecialchars($m['name']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </label><br><br>
+
+                <label><?= $lang->get('import_upload_label') ?> :
+                    <input type="file" name="csv_real_file" accept=".csv" required>
+                </label><br><br>
+
+                <button type="submit" name="import_real"><?= $lang->get('import_real_button') ?></button>
+            </form>
+        <?php endif; ?>
+
+        <!-- ✅ Résultats d'envoi ligne par ligne -->
+        <?php if (!empty($results)): ?>
+            <hr>
+            <h2><?= $lang->get('import_results_title') ?></h2>
+            <ul>
+                <?php foreach ($results as $i => $res): ?>
+                    <li style="color: <?= $res['success'] ? 'green' : 'red' ?>;">
+                        <?= $lang->get('import_row') . ' ' . ($i + 1) ?> : <?= htmlspecialchars($res['message']) ?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
         <?php endif; ?>
     </div>
 </body>
