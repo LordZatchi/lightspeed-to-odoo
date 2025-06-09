@@ -47,6 +47,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['csv_file']) && isset
                 $results[] = sendToOdoo($data, $lang);
             }
             fclose($handle);
+            // ✅ Comptage des succès / erreurs
+            $successCount = count(array_filter($results, fn($r) => $r['success']));
+            $failCount = count($results) - $successCount;
+            $total = count($results);
+            $status = $failCount === 0 ? 'success' : 'error';
+
+            // 💾 Insertion dans import_logs
+            $stmt = $pdo->prepare("
+    INSERT INTO import_logs (user_id, mapping_id, file_name, total_lines, success_lines, failed_lines, status, message, details)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+");
+
+            $stmt->execute([
+                $_SESSION['user_id'],
+                $mappingId,
+                $_FILES['csv_file']['name'],
+                $total,
+                $successCount,
+                $failCount,
+                $status,
+                $lang->get('logs_import_message_' . $status),
+                json_encode($results, JSON_UNESCAPED_UNICODE)
+            ]);
         }
     }
 }

@@ -74,13 +74,19 @@ $pdo->exec("
     );
 ");
 
+// Table des logs d'import CSV (historique)
 $pdo->exec("
     CREATE TABLE IF NOT EXISTS import_logs (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        user_id INT,
-        file_name VARCHAR(255),
-        status VARCHAR(20),
+        user_id INT NOT NULL,
+        mapping_id INT DEFAULT NULL,
+        file_name VARCHAR(255) NOT NULL,
+        total_lines INT DEFAULT 0,
+        success_lines INT DEFAULT 0,
+        failed_lines INT DEFAULT 0,
+        status VARCHAR(20) DEFAULT 'pending',
         message TEXT,
+        details TEXT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
 ");

@@ -121,4 +121,16 @@ return [
     'import_user_title' => 'CSV Import - User',
     'no_mapping_available' => 'No mapping model is currently available.',
 
+    // IMPORT LOGS HISTORY
+    'logs_title' => 'Import History',
+    'logs_none' => 'No import has been logged yet.',
+    'logs_date' => 'Date',
+    'logs_user' => 'User',
+    'logs_file' => 'File',
+    'logs_mapping' => 'Mapping',
+    'logs_status' => 'Status',
+    'logs_message' => 'Message',
+    'logs_import_message_success' => 'Import completed successfully.',
+    'logs_import_message_error' => 'Import completed with errors.',
+
 ];

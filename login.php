@@ -29,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'email' => $user['email'],
                     'role'  => $user['role']
                 ];
+                $_SESSION['user_id'] = $user['id'];
                 header('Location: index.php');
                 exit;
             } else {

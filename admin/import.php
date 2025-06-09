@@ -1,85 +1,56 @@
 <?php
-// admin/import.php — Upload CSV et mapping dynamique (admin)
-
 require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/pdo.php';
 require_once __DIR__ . '/../includes/View.php';
 require_once __DIR__ . '/../includes/Lang.php';
+require_once __DIR__ . '/../includes/odoo.php';
 
 Guard::admin();
 
 $lang = new Lang();
 $pdo = getPDO();
-$columns = [];
-$filename = null;
+
 $message = null;
+$columns = [];
+$filename = '';
+$results = [];
 
-// 📥 Traitement de l'upload CSV
+// 📤 Traitement : Upload CSV pour analyse des colonnes
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['csv_file'])) {
-    if (!is_dir(__DIR__ . '/../data')) {
-        mkdir(__DIR__ . '/../data', 0755, true);
-    }
-
     $tmpName = $_FILES['csv_file']['tmp_name'];
-    $originalName = basename($_FILES['csv_file']['name']);
-    $filename = uniqid('csv_', true) . '.csv';
-    $destination = __DIR__ . '/../data/' . $filename;
-
-    if (move_uploaded_file($tmpName, $destination)) {
-        if (($handle = fopen($destination, 'r')) !== false) {
-            $columns = fgetcsv($handle, 1000, ';');
-            fclose($handle);
+    if (($handle = fopen($tmpName, 'r')) !== false) {
+        $header = fgetcsv($handle, 1000, ';');
+        if ($header) {
+            $columns = array_map('trim', $header);
+            $filename = $_FILES['csv_file']['name'];
         }
-        $message = $lang->get('import_success');
-    } else {
-        $message = $lang->get('import_failed');
+        fclose($handle);
     }
 }
 
-// 💾 Traitement de l'enregistrement du modèle de mapping
+// 💾 Traitement : Enregistrement du mapping CSV ↔ Odoo
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mapping']) && isset($_POST['mapping_name'])) {
-    $mappingName = trim($_POST['mapping_name']);
-    $mappingData = $_POST['mapping']; // tableau colonne => champ Odoo
+    $mapping = $_POST['mapping'];
+    $name = trim($_POST['mapping_name']);
 
-    if ($mappingName && is_array($mappingData)) {
-        $stmt = $pdo->prepare("INSERT INTO mappings (name, data) VALUES (?, ?)");
-        $stmt->execute([
-            $mappingName,
-            json_encode($mappingData, JSON_UNESCAPED_UNICODE)
-        ]);
-        $message = $lang->get('mapping_saved');
-    } else {
-        $message = $lang->get('mapping_invalid');
-    }
-
-    // on vide colonnes après sauvegarde
-    $columns = [];
+    $stmt = $pdo->prepare("INSERT INTO mappings (name, data, created_at) VALUES (?, ?, NOW())");
+    $stmt->execute([$name, json_encode($mapping, JSON_UNESCAPED_UNICODE)]);
+    $message = $lang->get('mapping_saved_success');
 }
 
-// 📋 Récupération des mappings existants
-$stmt = $pdo->query("SELECT id, name FROM mappings ORDER BY created_at DESC");
-$availableMappings = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// 📥 Traitement d’un import réel
+// 🚀 Import réel vers Odoo
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['import_real']) && isset($_FILES['csv_real_file'])) {
-    $mappingId = (int) ($_POST['selected_mapping'] ?? 0);
-    $mappingStmt = $pdo->prepare("SELECT data FROM mappings WHERE id = ?");
-    $mappingStmt->execute([$mappingId]);
-    $mappingData = $mappingStmt->fetchColumn();
+    $mappingId = (int) $_POST['selected_mapping'];
 
-    if (!$mappingData) {
-        $message = $lang->get('import_mapping_not_found');
-    } else {
+    $stmt = $pdo->prepare("SELECT data FROM mappings WHERE id = ?");
+    $stmt->execute([$mappingId]);
+    $mappingData = $stmt->fetchColumn();
+
+    if ($mappingData) {
         $mapping = json_decode($mappingData, true);
-
-        // Traitement du fichier
         $tmpName = $_FILES['csv_real_file']['tmp_name'];
         if (($handle = fopen($tmpName, 'r')) !== false) {
             $headers = fgetcsv($handle, 1000, ';');
-            $results = [];
-
-            require_once __DIR__ . '/../includes/odoo.php';
-
             while (($row = fgetcsv($handle, 1000, ';')) !== false) {
                 $data = [];
                 foreach ($headers as $index => $columnName) {
@@ -89,18 +60,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['import_real']) && iss
                     }
                 }
 
-                // Envoi vers Odoo
-                $result = sendToOdoo($data, $lang);
-                $results[] = $result;
+                $results[] = sendToOdoo($data, $lang);
             }
             fclose($handle);
+
+            // ✅ Enregistrement dans import_logs
+            $successCount = count(array_filter($results, fn($r) => $r['success']));
+            $failCount = count($results) - $successCount;
+            $total = count($results);
+            $status = $failCount === 0 ? 'success' : 'error';
+
+            $stmt = $pdo->prepare("
+                INSERT INTO import_logs (user_id, mapping_id, file_name, total_lines, success_lines, failed_lines, status, message, details)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ");
+
+            $stmt->execute([
+                $_SESSION['user_id'],
+                $mappingId,
+                $_FILES['csv_real_file']['name'],
+                $total,
+                $successCount,
+                $failCount,
+                $status,
+                $lang->get('logs_import_message_' . $status),
+                json_encode($results, JSON_UNESCAPED_UNICODE)
+            ]);
         }
+    } else {
+        $message = $lang->get('import_mapping_not_found');
     }
 }
 
-// 🔁 Chargement des champs mappables Odoo
+// 🔁 Champs Odoo disponibles
 $odoo_fields = include __DIR__ . '/../includes/odoo_fields.php';
 
+// 🔄 Mappings existants
+$stmt = $pdo->query("SELECT id, name FROM mappings ORDER BY created_at DESC");
+$availableMappings = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// 🎨 Rendu
 View::render('admin_import', [
     'title' => $lang->get('import_title'),
     'message' => $message,
@@ -108,6 +107,6 @@ View::render('admin_import', [
     'filename' => $filename,
     'odoo_fields' => $odoo_fields,
     'availableMappings' => $availableMappings,
-    'results' => $results ?? [],
+    'results' => $results,
     'lang' => $lang
 ]);
