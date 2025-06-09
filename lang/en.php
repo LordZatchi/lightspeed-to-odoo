@@ -136,4 +136,14 @@ return [
     'pagination_next' => 'Next »',
     'pagination_page' => 'Page',
 
+    // MAPPINGS
+    'mappings_title' => 'Mapping Models',
+    'mapping_none' => 'No mapping model found.',
+    'mapping_name' => 'Name',
+    'mapping_date' => 'Created on',
+    'mapping_actions' => 'Actions',
+    'mapping_delete' => 'Delete',
+    'mapping_deleted' => 'Mapping deleted successfully.',
+    'mapping_confirm_delete' => 'Confirm deletion of this mapping?',
+
 ];

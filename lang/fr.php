@@ -136,4 +136,14 @@ return [
     'pagination_next' => 'Suivant »',
     'pagination_page' => 'Page',
 
+    // MAPPINGS
+    'mappings_title' => 'Modèles de mapping',
+    'mapping_none' => 'Aucun modèle de mapping trouvé.',
+    'mapping_name' => 'Nom',
+    'mapping_date' => 'Créé le',
+    'mapping_actions' => 'Actions',
+    'mapping_delete' => 'Supprimer',
+    'mapping_deleted' => 'Modèle supprimé avec succès.',
+    'mapping_confirm_delete' => 'Confirmer la suppression de ce mapping ?',
+
 ];
