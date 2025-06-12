@@ -1,13 +1,15 @@
 <?php
-// import.php — Import CSV pour utilisateur (simple)
+// import.php — Import CSV pour utilisateur simple
 
 require_once __DIR__ . '/includes/auth.php';
 require_once __DIR__ . '/includes/pdo.php';
 require_once __DIR__ . '/includes/View.php';
 require_once __DIR__ . '/includes/Lang.php';
 require_once __DIR__ . '/includes/odoo.php';
+require_once __DIR__ . '/includes/settings.php';
+require_once __DIR__ . '/includes/crypto.php';
 
-Guard::user(); // Accès utilisateurs simples
+Guard::user();
 
 $lang = new Lang();
 $pdo = getPDO();
@@ -31,6 +33,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['csv_file']) && isset
     } else {
         $mapping = json_decode($mappingData, true);
 
+        // 🔐 Lecture sécurisée des paramètres Odoo
+        $odooUrl  = getSetting('odoo_url');
+        $odooUser = getSetting('odoo_user');
+        $odooPass = decrypt(getSetting('odoo_pass'));
+        $odooDb   = getSetting('odoo_db');
+
         $tmpName = $_FILES['csv_file']['tmp_name'];
         if (($handle = fopen($tmpName, 'r')) !== false) {
             $headers = fgetcsv($handle, 1000, ';');
@@ -43,22 +51,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['csv_file']) && isset
                     }
                 }
 
-                // Envoi vers Odoo
-                $results[] = sendToOdoo($data, $lang);
+                $results[] = sendToOdoo($odooUrl, $odooDb, $odooUser, $odooPass, $data);
             }
             fclose($handle);
-            // ✅ Comptage des succès / erreurs
+
+            // ✅ Enregistrement dans import_logs
             $successCount = count(array_filter($results, fn($r) => $r['success']));
             $failCount = count($results) - $successCount;
             $total = count($results);
             $status = $failCount === 0 ? 'success' : 'error';
 
-            // 💾 Insertion dans import_logs
             $stmt = $pdo->prepare("
-    INSERT INTO import_logs (user_id, mapping_id, file_name, total_lines, success_lines, failed_lines, status, message, details)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-");
-
+                INSERT INTO import_logs (user_id, mapping_id, file_name, total_lines, success_lines, failed_lines, status, message, details)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ");
             $stmt->execute([
                 $_SESSION['user_id'],
                 $mappingId,
@@ -74,7 +80,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['csv_file']) && isset
     }
 }
 
-// 👁 Affichage
 View::render('import_user', [
     'title' => $lang->get('import_user_title'),
     'message' => $message,

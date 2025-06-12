@@ -14,7 +14,6 @@
 <body>
     <div class="install-container">
         <h1><?= htmlspecialchars($title) ?></h1>
-        <p><?= htmlspecialchars($message) ?></p>
     </div>
 </body>
 

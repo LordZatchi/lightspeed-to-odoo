@@ -1,24 +1,35 @@
 <?php
-// includes/settings.php
+// ✅ Lecture sécurisée des paramètres depuis la table settings
 
-class Settings
+require_once __DIR__ . '/crypto.php';
+
+/**
+ * Récupère une clé de configuration depuis la table settings
+ *
+ * @param string $key
+ * @return string|null
+ */
+function getSetting(string $key): ?string
 {
-    private static $data = [];
+    static $cache = [];
 
-    public static function load()
-    {
-        if (!file_exists(__DIR__ . '/../config.php')) return;
-        include __DIR__ . '/../config.php';
+    if (isset($cache[$key])) return $cache[$key];
 
-        $pdo = getPDO();
-        $stmt = $pdo->query("SELECT `key`, `value` FROM settings");
-        foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
-            self::$data[$row['key']] = $row['value'];
-        }
-    }
+    if (!file_exists(__DIR__ . '/../config.php')) return null;
+    $config = include __DIR__ . '/../config.php';
 
-    public static function get($key)
-    {
-        return self::$data[$key] ?? null;
+    try {
+        $pdo = new PDO(
+            'mysql:host=' . $config['db_host'] . ';dbname=' . $config['db_name'] . ';charset=utf8mb4',
+            $config['db_user'],
+            decrypt($config['db_pass'])
+        );
+        $stmt = $pdo->prepare("SELECT value FROM settings WHERE `key` = ?");
+        $stmt->execute([$key]);
+        $value = $stmt->fetchColumn();
+        $cache[$key] = $value ?: null;
+        return $cache[$key];
+    } catch (Exception $e) {
+        return null;
     }
 }

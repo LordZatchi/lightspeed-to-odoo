@@ -5,10 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <title><?= htmlspecialchars($title) ?></title>
-    <link rel="stylesheet" href="/template/<?= $theme ?>/css/base.css">
-    <link rel="stylesheet" href="/template/<?= $theme ?>/css/layout.css">
-    <link rel="stylesheet" href="/template/<?= $theme ?>/css/components.css">
-    <link rel="stylesheet" href="/template/<?= $theme ?>/css/theme.css">
+    <link rel="stylesheet" href="/template/emeraldnight/css/base.css">
+    <link rel="stylesheet" href="/template/emeraldnight/css/layout.css">
+    <link rel="stylesheet" href="/template/emeraldnight/css/components.css">
+    <link rel="stylesheet" href="/template/emeraldnight/css/theme.css">
 </head>
 
 <body>

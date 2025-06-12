@@ -3,6 +3,7 @@
 return [
     '__lang_code' => 'fr', // ou 'en'
 
+    // ACCUEIL
     'welcome_title' => 'Bienvenue dans Lightspeed to Odoo',
     'welcome_message' => 'Veuillez importer votre fichier CSV pour commencer.',
 
@@ -116,6 +117,8 @@ return [
     'odoo_auth_failed' => 'Échec de l\'authentification auprès d\'Odoo.',
     'odoo_create_success' => 'Produit créé avec succès',
     'odoo_create_unknown_error' => 'Erreur inconnue lors de la création du produit.',
+    'odoo_no_response' => "Aucune réponse du serveur Odoo.",
+    'odoo_unknown_error' => "Erreur inconnue lors de la création sur Odoo.",
 
     // IMPORT / MAPPING / CSV - UTILISATEUR
     'import_user_title' => 'Import CSV - Utilisateur',
@@ -156,4 +159,28 @@ return [
     'back' => 'Retour',
     'mapping_edit' => 'Modifier',
 
+    // PARAMÈTRES
+    'settings_title' => 'Paramètres du site',
+    'settings_saved' => 'Paramètres enregistrés avec succès.',
+    'settings_site_title' => 'Titre du site',
+    'settings_theme' => 'Thème visuel',
+    'settings_lang' => 'Langue du site',
+    'settings_logo' => 'Logo du site',
+    'settings_odoo_url' => 'URL du serveur Odoo',
+    'settings_odoo_db' => 'Base Odoo',
+    'settings_odoo_user' => 'Identifiant Odoo',
+    'settings_odoo_pass' => 'Mot de passe Odoo',
+    'save' => 'Enregistrer',
+    'settings_password_placeholder' => 'Laisser vide pour ne pas modifier',
+    'settings_test_button' => 'Tester la configuration',
+    'settings_save_button' => 'Valider la configuration',
+    'settings_confirm_save' => 'Confirmer l\'enregistrement de cette configuration ?',
+    'settings_test_success' => 'Test réussi. Vous pouvez maintenant valider la configuration.',
+    'settings_test_failed' => 'Échec d\'au moins une des connexions. Aucune modification enregistrée.',
+    'settings_odoo_section' => 'Connexion à Odoo',
+    'settings_mysql_section' => 'Connexion MySQL',
+    'settings_mysql_host' => 'Hôte MySQL',
+    'settings_mysql_db' => 'Base de données',
+    'settings_mysql_user' => 'Utilisateur',
+    'settings_mysql_pass' => 'Mot de passe MySQL',
 ];

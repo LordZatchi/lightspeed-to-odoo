@@ -1,5 +1,6 @@
 # 🔒 Fichier de configuration local
 config.php
+includes/secret.php
 
 # 📂 Répertoire de fichiers uploadés
 /uploads/

@@ -4,6 +4,8 @@ require_once __DIR__ . '/../includes/pdo.php';
 require_once __DIR__ . '/../includes/View.php';
 require_once __DIR__ . '/../includes/Lang.php';
 require_once __DIR__ . '/../includes/odoo.php';
+require_once __DIR__ . '/../includes/settings.php';
+require_once __DIR__ . '/../includes/crypto.php';
 
 Guard::admin();
 
@@ -15,7 +17,7 @@ $columns = [];
 $filename = '';
 $results = [];
 
-// 📤 Traitement : Upload CSV pour analyse des colonnes
+// 📤 Analyse CSV pour création de mapping
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['csv_file'])) {
     $tmpName = $_FILES['csv_file']['tmp_name'];
     if (($handle = fopen($tmpName, 'r')) !== false) {
@@ -28,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['csv_file'])) {
     }
 }
 
-// 💾 Traitement : Enregistrement du mapping CSV ↔ Odoo
+// 💾 Enregistrement du mapping
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mapping']) && isset($_POST['mapping_name'])) {
     $mapping = $_POST['mapping'];
     $name = trim($_POST['mapping_name']);
@@ -53,6 +55,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['import_real']) && iss
 
     if ($mappingData) {
         $mapping = json_decode($mappingData, true);
+
+        // 🔐 Lecture sécurisée des paramètres Odoo
+        $odooUrl  = getSetting('odoo_url');
+        $odooUser = getSetting('odoo_user');
+        $odooPass = decrypt(getSetting('odoo_pass'));
+        $odooDb   = getSetting('odoo_db');
+
         $tmpName = $_FILES['csv_real_file']['tmp_name'];
         if (($handle = fopen($tmpName, 'r')) !== false) {
             $headers = fgetcsv($handle, 1000, ';');
@@ -64,8 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['import_real']) && iss
                         $data[$odooField] = $row[$index];
                     }
                 }
-
-                $results[] = sendToOdoo($data, $lang);
+                $results[] = sendToOdoo($odooUrl, $odooDb, $odooUser, $odooPass, $data);
             }
             fclose($handle);
 
@@ -79,7 +87,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['import_real']) && iss
                 INSERT INTO import_logs (user_id, mapping_id, file_name, total_lines, success_lines, failed_lines, status, message, details)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             ");
-
             $stmt->execute([
                 $_SESSION['user_id'],
                 $mappingId,
