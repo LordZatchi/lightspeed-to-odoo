@@ -1,103 +1,43 @@
 
-# Lightspeed to Odoo POS CSV Importer
+# Lightspeed to Odoo POS CSV Importer - V2 Branche Sécurisée
 
 ---
 
-## 🔒 Projet sécurisé et stabilisé (v1.0 AES)
+## 🔒 Version stabilisée sécurisée sur branche V2
 
-**Objectif** :  
-Permet d'importer des fichiers CSV issus de Lightspeed K (Série K) vers Odoo POS via une interface web sécurisée.
-
----
-
-## 🧱 Technologies utilisées
-
-- PHP 8.x (procédural et objet léger)
-- MySQL (stockage BDD)
-- HTML5 / CSS3 (multithème EmeraldNight / EmeraldDay)
-- JavaScript léger (pas de framework JS externe)
-- AES-256 pour le chiffrement des mots de passe (Odoo & MySQL)
-- PDO sécurisé (connexion centralisée)
+**Branche V2 sécurisée initialisée avec base complète :**
+- Chiffrement AES-256 complet (MySQL + Odoo)
+- PDO centralisé
+- Multi-langue dynamique FR/EN
+- Multi-thème dynamique EmeraldNight / EmeraldDay
+- Interface d'installation web sécurisée AES
+- Gestion des mappings CSV ↔ Odoo
+- Historique des imports complet
+- Interface d'administration sécurisée
 
 ---
 
-## 🚀 Fonctionnalités principales
+## ✅ Base sécurisée AES consolidée sur branche V2
 
-- ✅ **Installation web sécurisée**
-- ✅ **Connexion MySQL et Odoo vérifiée lors de l'installation**
-- ✅ **Chiffrement AES-256 complet**
-- ✅ **Gestion des mappings CSV ↔ Odoo réutilisables**
-- ✅ **Historique des imports**
-- ✅ **Multi-thème EmeraldNight / EmeraldDay**
-- ✅ **Multi-langue FR/EN**
-- ✅ **Gestion des utilisateurs (admin / user)**
-- ✅ **Logs complets des imports**
+- Tous les mots de passe sont stockés chiffrés AES-256.
+- Toutes les connexions MySQL passent via PDO centralisé.
+- Toutes les connexions Odoo sont sécurisées et testées à l'installation.
+- Multi-langue dynamique via fichiers lang/fr.php et lang/en.php.
+- Multi-thème EmeraldNight / EmeraldDay activable dynamiquement.
+- Aucun texte en dur dans le PHP : full internationalisation.
+- Sécurité et architecture optimales pour développement de la suite V2.
 
 ---
 
-## 📂 Structure des répertoires
-
-```bash
-/includes/      → Code métier sécurisé (pdo, odoo, settings, crypto)
-/admin/         → Interface administrateur (mappings, settings, logs)
-/install/       → Installateur web sécurisé
-/lang/          → Fichiers de langue (fr.php, en.php)
-/template/      → Templates multithèmes (emeraldnight, emeraldday)
-/uploads/       → Logo du site
-/config.php     → Paramètres MySQL chiffrés AES
-```
+## 🚀 Prochaine roadmap V2 en cours :
+- Intégration centralisée de View::render() sur tout le projet
+- Layout dynamique multi-thème complet (Phase 2)
+- Préférences utilisateur (Phase 3)
+- Imports CSV avancés avec prévisualisation (Phase 4)
+- Logs enrichis (Phase 5)
+- Audit sécurité & Debug (Phase 6)
+- Sauvegarde système & Préparation multisite Odoo (Phase 7 à 10)
 
 ---
 
-## 🔐 Sécurité & chiffrement
-
-- Tous les mots de passe sont stockés chiffrés avec AES-256 (fonction `encrypt()` / `decrypt()`).
-- La clé de chiffrement est stockée dans :  
-  ```bash
-  /includes/secret.php
-  ```
-- **Attention : ce fichier est exclu du Git via `.gitignore` (ne jamais versionner la clé).**
-
----
-
-## ⚙ Fichier `.gitignore` recommandé
-
-```bash
-/includes/secret.php
-/uploads/*
-config.php
-.env
-```
-
----
-
-## 🚩 Installation
-
-1️⃣ Déployer les fichiers sur un serveur PHP/MySQL compatible.  
-2️⃣ Accéder à `/install/` pour lancer l'installation web.  
-3️⃣ Tester les connexions MySQL et Odoo avant validation.  
-4️⃣ Créer le premier administrateur.
-
----
-
-## 📅 Roadmap V2 (à venir)
-
-- ✅ Edition et suppression des mappings existants
-- ✅ Mode debug global activable
-- ✅ Gestion centralisée des logs d’erreurs Odoo
-- ✅ Fonction d'import CSV automatique depuis fichiers serveur
-- ✅ Gestion fine des permissions utilisateurs
-- ✅ Prévisualisation des imports avant exécution
-
----
-
-## 👨‍💻 Auteur & contributions
-
-Projet développé étape par étape avec validation manuelle sur chaque fichier pour garantir propreté, stabilité et évolutivité.
-
-*Hébergement actuel : o2switch*  
-*Version stabilisée AES : v1.0*
-
----
-
-**Nous réanimons votre technologie.** 🛠️
+**Stabilisation validée et commitée sur branche `V2` avant démarrage Phase 2.**

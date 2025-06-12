@@ -42,10 +42,10 @@ return [
     'login_title' => 'Connexion',
     'login_email' => 'Adresse e-mail',
     'login_password' => 'Mot de passe',
-    'login_submit' => 'Se connecter',
+    'login_button' => 'Se connecter',
     'login_missing_fields' => 'Veuillez remplir tous les champs.',
-    'login_invalid_credentials' => 'Identifiants invalides.',
     'login_error' => 'Erreur lors de la connexion',
+    'login_invalid' => 'Identifiants invalides.',
 
     // UTILISATEURS
     'users_title' => 'Gestion des utilisateurs',

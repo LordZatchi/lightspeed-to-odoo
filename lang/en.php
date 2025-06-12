@@ -42,10 +42,10 @@ return [
     'login_title' => 'Login',
     'login_email' => 'Email address',
     'login_password' => 'Password',
-    'login_submit' => 'Login',
     'login_missing_fields' => 'Please fill in all fields.',
-    'login_invalid_credentials' => 'Invalid credentials.',
-    'login_error' => 'Login error',
+    'login_invalid' => 'Invalid credentials.',
+    'login_error' => 'Connection error',
+    'login_button' => 'Sign in',
 
     // USERS
     'users_title' => 'User Management',
