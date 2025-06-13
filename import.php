@@ -1,90 +1,59 @@
 <?php
-// import.php — Import CSV pour utilisateur simple
+// import.php — Import CSV utilisateur (Fusion V2.5 - Phase 4 démarrage)
 
 require_once __DIR__ . '/includes/auth.php';
 require_once __DIR__ . '/includes/loader.php';
 require_once __DIR__ . '/includes/View.php';
 require_once __DIR__ . '/includes/pdo.php';
-require_once __DIR__ . '/includes/odoo.php';
 
-Guard::user();
+// Variables d'état
+$message = '';
+$headers = [];
+$previewRows = [];
+$mappings = [];
 
-$lang = new Lang();
+// Chargement des mappings existants
 $pdo = getPDO();
-$message = null;
-$results = [];
-
-// 📋 Liste des mappings disponibles
 $stmt = $pdo->query("SELECT id, name FROM mappings ORDER BY created_at DESC");
-$availableMappings = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$mappings = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// 📥 Traitement de l'import utilisateur
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['csv_file']) && isset($_POST['selected_mapping'])) {
-    $mappingId = (int) $_POST['selected_mapping'];
+// Traitement de l'upload
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['csv_file'])) {
 
-    $stmt = $pdo->prepare("SELECT data FROM mappings WHERE id = ?");
-    $stmt->execute([$mappingId]);
-    $mappingData = $stmt->fetchColumn();
+    $mappingId = (int) ($_POST['selected_mapping'] ?? 0);
+    $tmpName = $_FILES['csv_file']['tmp_name'];
 
-    if (!$mappingData) {
-        $message = $lang->get('import_mapping_not_found');
-    } else {
-        $mapping = json_decode($mappingData, true);
+    if (($handle = fopen($tmpName, 'r')) !== false) {
 
-        // 🔐 Lecture sécurisée des paramètres Odoo
-        $odooUrl  = getSetting('odoo_url');
-        $odooUser = getSetting('odoo_user');
-        $odooPass = decrypt(getSetting('odoo_pass'));
-        $odooDb   = getSetting('odoo_db');
+        // Tentative de détection du séparateur automatique
+        $firstLine = fgets($handle);
+        $separator = (substr_count($firstLine, ';') > substr_count($firstLine, ',')) ? ';' : ',';
+        rewind($handle);
 
-        $tmpName = $_FILES['csv_file']['tmp_name'];
-        if (($handle = fopen($tmpName, 'r')) !== false) {
-            $headers = fgetcsv($handle, 1000, ';');
-            while (($row = fgetcsv($handle, 1000, ';')) !== false) {
-                $data = [];
-                foreach ($headers as $index => $columnName) {
-                    $odooField = $mapping[$columnName] ?? null;
-                    if ($odooField && isset($row[$index])) {
-                        $data[$odooField] = $row[$index];
-                    }
-                }
+        // Lecture de l'en-tête
+        $headers = fgetcsv($handle, 1000, $separator);
 
-                $results[] = sendToOdoo($odooUrl, $odooDb, $odooUser, $odooPass, $data);
-            }
-            fclose($handle);
-
-            // ✅ Enregistrement dans import_logs
-            $successCount = count(array_filter($results, fn($r) => $r['success']));
-            $failCount = count($results) - $successCount;
-            $total = count($results);
-            $status = $failCount === 0 ? 'success' : 'error';
-
-            $stmt = $pdo->prepare("
-                INSERT INTO import_logs (user_id, mapping_id, file_name, total_lines, success_lines, failed_lines, status, message, details)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-            ");
-            $stmt->execute([
-                $_SESSION['user_id'],
-                $mappingId,
-                $_FILES['csv_file']['name'],
-                $total,
-                $successCount,
-                $failCount,
-                $status,
-                $lang->get('logs_import_message_' . $status),
-                json_encode($results, JSON_UNESCAPED_UNICODE)
-            ]);
+        // Lecture des premières lignes (prévisualisation)
+        $limit = 5;
+        while (($data = fgetcsv($handle, 1000, $separator)) !== false && $limit-- > 0) {
+            $previewRows[] = $data;
         }
+
+        fclose($handle);
+    } else {
+        $message = $lang->get('import_failed');
     }
 }
 
+// Rendu via View Fusion
 View::render('import_user', [
     'title' => $lang->get('import_user_title'),
     'logo' => getSetting('logo_path'),
     'lang' => $lang,
     'langCode' => $langCode,
     'theme' => $theme,
-    'availableMappings' => $availableMappings ?? [],
-    'results' => $results ?? [],
-    'message' => $message ?? ''
+    'mappings' => $mappings,
+    'headers' => $headers,
+    'previewRows' => $previewRows,
+    'message' => $message
 ]);
