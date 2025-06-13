@@ -1,53 +1,22 @@
 <?php
-// includes/Lang.php — Chargement multilingue intelligent (via settings.lang)
-
-require_once __DIR__ . '/pdo.php';
+// includes/Lang.php — gestion multilingue
+// ----------------------------------------------------
 
 class Lang
 {
-    private $strings = [];
-    private $langCode = 'fr';
+    private $data;
 
-    /**
-     * Constructeur principal : charge la langue depuis la base ou utilise le fallback
-     */
-    public function __construct(?string $forcedLang = null)
+    public function __construct($langCode)
     {
-        $this->langCode = $forcedLang;
-
-        if (!$this->langCode) {
-            try {
-                $pdo = getPDO();
-                $stmt = $pdo->prepare("SELECT value FROM settings WHERE `key` = 'lang' LIMIT 1");
-                $stmt->execute();
-                $this->langCode = $stmt->fetchColumn() ?: 'fr';
-            } catch (Exception $e) {
-                $this->langCode = 'fr';
-            }
-        }
-
-        $file = __DIR__ . '/../lang/' . $this->langCode . '.php';
+        $file = __DIR__ . '/../lang/' . $langCode . '.php';
         if (!file_exists($file)) {
-            $file = __DIR__ . '/../lang/fr.php';
-            $this->langCode = 'fr';
+            throw new Exception("Fichier langue introuvable : $file");
         }
-
-        $this->strings = include $file;
+        $this->data = include $file;
     }
 
-    /**
-     * Récupère une clé de langue
-     */
-    public function get(string $key): string
+    public function get($key)
     {
-        return $this->strings[$key] ?? $key;
-    }
-
-    /**
-     * Récupère le code langue courant (fr, en, etc.)
-     */
-    public function getLangCode(): string
-    {
-        return $this->strings['__lang_code'] ?? $this->langCode;
+        return $this->data[$key] ?? $key;
     }
 }

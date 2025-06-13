@@ -1,186 +1,82 @@
 <?php
-// lang/en.php — English translation keys
+// /lang/en.php — Application language keys
+
 return [
-    '__lang_code' => 'en',
+    // ---- Menu ----
+    'menu_home' => 'Home',
+    'menu_import' => 'Import',
+    'menu_admin_import' => 'Admin Import',
+    'menu_settings' => 'Settings',
+    'menu_mappings' => 'Mappings',
+    'menu_profil' => 'My Profile',
+    'menu_logout' => 'Logout',
 
-    // HOME
-    'welcome_title' => 'Welcome to Lightspeed to Odoo',
-    'welcome_message' => 'Please upload your CSV file to get started.',
-
-    // INSTALLATION
-    'install_title' => 'Installation of Lightspeed to Odoo',
-    'install_mysql_title' => '🔧 MySQL Database',
-    'install_mysql_host' => 'MySQL Host',
-    'install_mysql_name' => 'Database Name',
-    'install_mysql_user' => 'User',
-    'install_mysql_pass' => 'Password',
-    'install_odoo_title' => '🔗 Odoo Connection',
-    'install_odoo_url' => 'Server URL',
-    'install_odoo_db' => 'Odoo Database Name',
-    'install_odoo_login' => 'Odoo Login',
-    'install_odoo_pass' => 'Odoo Password',
-    'install_odoo_api' => 'API Key (optional)',
-    'install_appearance_title' => '🎨 Site Appearance',
-    'install_site_name' => 'Site Name',
-    'install_site_logo' => 'Site Logo',
-    'install_theme_night' => 'Emerald Night',
-    'install_theme_day' => 'Emerald Day',
-    'install_admin_title' => '👑 Administrator Account',
-    'install_admin_email' => 'Administrator Email',
-    'install_admin_pass' => 'Password',
-    'install_test_button' => '🔍 Test Connections',
-    'install_submit_button' => '🚀 Install',
-
-    // INSTALLATION — JS MESSAGES
-    'install_testing' => '⏳ Testing connections...',
-    'install_mysql_error' => 'MySQL connection failed.',
-    'install_odoo_error' => 'Odoo connection failed.',
-    'install_network_error' => 'A network error occurred.',
-    'install_success' => '✅ MySQL and Odoo connections successful! You can install now.',
-
-    // AUTHENTICATION
+    // ---- Login ----
     'login_title' => 'Login',
     'login_email' => 'Email address',
     'login_password' => 'Password',
-    'login_missing_fields' => 'Please fill in all fields.',
+    'login_button' => 'Login',
     'login_invalid' => 'Invalid credentials.',
-    'login_error' => 'Connection error',
-    'login_button' => 'Sign in',
+    'login_error' => 'Login error',
 
-    // USERS
-    'users_title' => 'User Management',
-    'users_email' => 'Email address',
-    'users_password' => 'Password',
+    // ---- Home ----
+    'home_title' => 'Dashboard',
+    'home_welcome' => 'Welcome to Lightspeed to Odoo.',
+
+    // ---- Profil ----
+    'profil_title' => 'My profile',
+    'profil_email' => 'Email address',
+    'profil_password' => 'New password',
+    'profil_password_placeholder' => '(leave blank to keep current)',
+    'profil_lang' => 'Language',
+    'profil_theme' => 'Theme',
+    'profil_save' => 'Save',
+    'profil_saved' => 'Profile updated successfully',
+
+    // ---- Import ----
+    'import_user_title' => 'CSV Import',
+    'import_user_file' => 'CSV File',
+    'import_user_mapping' => 'Mapping model',
+    'import_user_button' => 'Import',
+    'import_user_results' => 'Import Results',
+
+    // ---- Admin Users ----
+    'users_title' => 'Users',
+    'users_email' => 'Email',
     'users_role' => 'Role',
-    'users_role_user' => 'User',
-    'users_role_admin' => 'Administrator',
-    'users_add_button' => 'Add user',
-    'users_add_success' => 'User successfully added.',
-    'users_add_exists' => 'This user already exists.',
-    'users_add_error' => 'Invalid or incomplete fields.',
-    'users_actions' => 'Actions',
-    'users_delete_button' => 'Delete',
-    'users_deleted' => 'User deleted.',
-    'users_confirm_delete' => 'Delete this user?',
-    'users_self' => 'Yourself',
 
-    // THEMES
-    'theme_title' => 'Theme Selection',
-    'theme_submit' => 'Save theme',
-    'theme_changed' => 'Theme successfully changed.',
-    'theme_invalid' => 'Invalid theme selected.',
+    // ---- Mappings ----
+    'mappings_title' => 'Mapping models',
+    'mappings_edit_title' => 'Edit mapping',
+    'mappings_ignore' => 'Ignore',
+    'mappings_save' => 'Save',
 
-    // IMPORT ADMIN
-    'import_title' => 'CSV Import - Administration',
-    'import_upload_label' => 'CSV file to import',
-    'import_upload_button' => 'Analyze file',
-    'import_success' => 'File successfully imported.',
-    'import_failed' => 'File upload failed.',
-    'import_columns_title' => 'Columns detected in the file',
-    'mapping_saved' => 'Mapping model successfully saved.',
-    'mapping_invalid' => 'Invalid or incomplete mapping model.',
-    'mapping_save_button' => 'Save mapping',
-    'mapping_name_label' => 'Mapping model name',
-    'import_real_title' => 'Import a file to Odoo',
-    'import_real_mapping_label' => 'Mapping model to use',
-    'choose_mapping' => '— Select a mapping —',
-    'import_real_button' => 'Start import to Odoo',
-    'import_results_title' => 'Import Results',
-    'import_row' => 'Row',
-    'import_mapping_not_found' => 'Mapping not found or invalid.',
-
-    // ODOO FIELD TRANSLATIONS
-    'odoo_field_name' => 'Product name',
-    'odoo_field_default_code' => 'Internal reference',
-    'odoo_field_barcode' => 'Barcode',
-    'odoo_field_list_price' => 'Sales price',
-    'odoo_field_standard_price' => 'Cost',
-    'odoo_field_type' => 'Product type',
-    'odoo_field_categ_id' => 'Category',
-    'odoo_field_pos_categ_id' => 'POS category',
-    'odoo_field_available_in_pos' => 'Available in POS',
-    'odoo_field_to_weight' => 'To weigh',
-    'odoo_field_taxes_id' => 'Customer taxes',
-    'odoo_field_supplier_taxes_id' => 'Vendor taxes',
-    'odoo_field_uom_id' => 'Unit of measure',
-    'odoo_field_uom_po_id' => 'Purchase unit',
-    'odoo_field_description' => 'Internal description',
-    'odoo_field_description_sale' => 'Sales description',
-    'odoo_field_description_purchase' => 'Purchase description',
-    'odoo_field_image_1920' => 'Main image',
-    'odoo_field_tracking' => 'Lot tracking',
-    'odoo_field_detailed_type' => 'Simplified type',
-
-    // ODOO
-    'odoo_config_missing' => 'Missing Odoo configuration file.',
-    'odoo_config_incomplete' => 'Odoo connection settings are incomplete.',
-    'odoo_auth_failed' => 'Authentication with Odoo failed.',
-    'odoo_create_success' => 'Product created successfully',
-    'odoo_create_unknown_error' => 'Unknown error while creating the product.',
-    'odoo_no_response' => "No response from Odoo server.",
-    'odoo_unknown_error' => "Unknown error while creating product in Odoo.",
-
-    // IMPORT / MAPPING / CSV - USER
-    'import_user_title' => 'CSV Import - User',
-    'no_mapping_available' => 'No mapping models available yet.',
-
-    // IMPORT LOGS
+    // ---- Logs / Admin ----
     'logs_title' => 'Import History',
-    'logs_none' => 'No imports recorded yet.',
+    'settings_title' => 'Global Settings',
+
+    // ---- Import (complement) ----
+    'import_failed' => 'Import failed.',
+
+    // ---- Mapping (complement) ----
+    'mapping_saved' => 'Mapping successfully saved.',
+    'mapping_deleted' => 'Mapping successfully deleted.',
+    'mapping_confirm_delete' => 'Do you confirm deletion of this mapping?',
+
+    // ---- Logs (complement) ----
     'logs_date' => 'Date',
     'logs_user' => 'User',
     'logs_file' => 'File',
     'logs_mapping' => 'Mapping',
     'logs_status' => 'Status',
     'logs_message' => 'Message',
-    'logs_import_message_success' => 'Import completed successfully.',
-    'logs_import_message_error' => 'Import completed with errors.',
-    'pagination_prev' => '« Previous',
-    'pagination_next' => 'Next »',
-    'pagination_page' => 'Page',
 
-    // MAPPINGS
-    'mappings_title' => 'Mapping Models',
-    'mapping_none' => 'No mapping models found.',
-    'mapping_name' => 'Name',
-    'mapping_date' => 'Created on',
-    'mapping_actions' => 'Actions',
-    'mapping_delete' => 'Delete',
-    'mapping_deleted' => 'Mapping successfully deleted.',
-    'mapping_confirm_delete' => 'Confirm deletion of this mapping?',
-    'mapping_saved_success' => 'Mapping model saved successfully.',
+    // ---- Settings (complement) ----
+    'settings_saved' => 'Settings successfully saved.',
 
-    // MAPPING - EDITING
-    'mapping_edit_title' => 'Edit Mapping Model',
-    'mapping_no_columns' => 'No CSV columns recorded for this mapping.',
-    'mapping_ignore' => 'Ignore',
-    'mapping_not_found' => 'Mapping not found.',
-    'mapping_invalid_id' => 'Invalid mapping ID.',
-    'back' => 'Back',
-    'mapping_edit' => 'Edit',
+    // ---- Odoo (complement) ----
+    'odoo_create_success' => 'Product created on Odoo',
+    'odoo_auth_failed' => 'Odoo authentication failed',
+    'odoo_config_incomplete' => 'Odoo configuration incomplete'
 
-    // SETTINGS
-    'settings_title' => 'Site Settings',
-    'settings_saved' => 'Settings saved successfully.',
-    'settings_site_title' => 'Site title',
-    'settings_theme' => 'Visual theme',
-    'settings_lang' => 'Site language',
-    'settings_logo' => 'Site logo',
-    'settings_odoo_url' => 'Odoo server URL',
-    'settings_odoo_db' => 'Odoo database',
-    'settings_odoo_user' => 'Odoo login',
-    'settings_odoo_pass' => 'Odoo password',
-    'save' => 'Save',
-    'settings_password_placeholder' => 'Leave blank to keep current password',
-    'settings_test_button' => 'Test configuration',
-    'settings_save_button' => 'Validate configuration',
-    'settings_confirm_save' => 'Confirm saving this configuration?',
-    'settings_test_success' => 'Test successful. You can now save the configuration.',
-    'settings_test_failed' => 'One or more connections failed. No changes were saved.',
-    'settings_odoo_section' => 'Odoo Connection',
-    'settings_mysql_section' => 'MySQL Connection',
-    'settings_mysql_host' => 'MySQL Host',
-    'settings_mysql_db' => 'Database name',
-    'settings_mysql_user' => 'User',
-    'settings_mysql_pass' => 'MySQL password',
 ];

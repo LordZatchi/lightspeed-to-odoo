@@ -1,12 +1,21 @@
 <?php
-// install/index.php — page de démarrage de l'installation
+// install/index.php — Interface principale d'installation
+// ---------------------------------------------------------
 
-require_once __DIR__ . '/../includes/View.php';
-require_once __DIR__ . '/../includes/Lang.php';
+// Chargement dynamique de la langue
+$langCode = $_GET['lang'] ?? 'fr';
+$langFile = __DIR__ . '/lang/' . $langCode . '.php';
 
-$lang = new Lang(); // ✅ utilise la langue dynamique (via settings.lang)
+if (!file_exists($langFile)) {
+    die("Langue inconnue");
+}
 
-View::render('install_view', [
-    'title' => $lang->get('install_title'),
-    'lang' => $lang
-]);
+require_once $langFile;
+$lang = new LangInstall($translations);
+
+// Liste des thèmes et langues disponibles
+$themes = ['emeraldnight', 'emeraldday'];
+$langs = ['fr' => 'Français', 'en' => 'English'];
+
+// Affichage du formulaire
+include __DIR__ . '/views/install_view.php';

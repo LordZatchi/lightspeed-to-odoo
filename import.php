@@ -2,12 +2,10 @@
 // import.php — Import CSV pour utilisateur simple
 
 require_once __DIR__ . '/includes/auth.php';
-require_once __DIR__ . '/includes/pdo.php';
+require_once __DIR__ . '/includes/loader.php';
 require_once __DIR__ . '/includes/View.php';
-require_once __DIR__ . '/includes/Lang.php';
+require_once __DIR__ . '/includes/pdo.php';
 require_once __DIR__ . '/includes/odoo.php';
-require_once __DIR__ . '/includes/settings.php';
-require_once __DIR__ . '/includes/crypto.php';
 
 Guard::user();
 
@@ -82,8 +80,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['csv_file']) && isset
 
 View::render('import_user', [
     'title' => $lang->get('import_user_title'),
-    'message' => $message,
-    'availableMappings' => $availableMappings,
-    'results' => $results,
-    'lang' => $lang
+    'logo' => getSetting('logo_path'),
+    'lang' => $lang,
+    'langCode' => $langCode,
+    'theme' => $theme,
+    'availableMappings' => $availableMappings ?? [],
+    'results' => $results ?? [],
+    'message' => $message ?? ''
 ]);

@@ -1,56 +1,45 @@
 <?php
+// admin/edit_mapping.php — Edition d'un mapping CSV ↔ Odoo
+
 require_once __DIR__ . '/../includes/auth.php';
-require_once __DIR__ . '/../includes/pdo.php';
+require_once __DIR__ . '/../includes/loader.php';
 require_once __DIR__ . '/../includes/View.php';
-require_once __DIR__ . '/../includes/Lang.php';
+require_once __DIR__ . '/../includes/pdo.php';
 
-Guard::admin();
-
-$lang = new Lang();
+// ✅ Chargement du mapping existant
 $pdo = getPDO();
-$odoo_fields = include __DIR__ . '/../includes/odoo_fields.php';
+$id = (int) ($_GET['id'] ?? 0);
 
-$message = null;
-$mapping = [];
-$columns = [];
-$name = '';
-$id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
+$stmt = $pdo->prepare("SELECT * FROM mappings WHERE id = ?");
+$stmt->execute([$id]);
+$mapping = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if ($id > 0) {
-    // 🔄 Chargement du mapping
-    $stmt = $pdo->prepare("SELECT name, data, csv_columns FROM mappings WHERE id = ?");
-    $stmt->execute([$id]);
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if (!$row) {
-        $message = $lang->get('mapping_not_found');
-    } else {
-        $name = $row['name'];
-        $mapping = json_decode($row['data'], true);
-        $columns = json_decode($row['csv_columns'], true) ?? [];
-    }
-} else {
-    $message = $lang->get('mapping_invalid_id');
+if (!$mapping) {
+    die("Mapping introuvable.");
 }
 
-// 💾 Sauvegarde de la modification
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mapping']) && $id > 0) {
-    $mapping = $_POST['mapping'];
-    $stmt = $pdo->prepare("UPDATE mappings SET data = ? WHERE id = ?");
-    $stmt->execute([json_encode($mapping, JSON_UNESCAPED_UNICODE), $id]);
+$data = json_decode($mapping['data'], true);
+$csv_columns = json_decode($mapping['csv_columns'], true);
+$odoo_fields = include __DIR__ . '/../includes/odoo_fields.php';
 
-    header("Location: mappings.php?updated=1");
+// ✅ Traitement de la modification
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $newMapping = $_POST['mapping'] ?? [];
+    $stmt = $pdo->prepare("UPDATE mappings SET data = ? WHERE id = ?");
+    $stmt->execute([json_encode($newMapping, JSON_UNESCAPED_UNICODE), $id]);
+    header("Location: mappings.php");
     exit;
 }
 
-// Vue
-View::render('edit_mapping', [
-    'title' => $lang->get('mapping_edit_title'),
-    'id' => $id,
-    'name' => $name,
-    'columns' => $columns,
+// ✅ Affichage
+View::render('admin_edit_mapping', [
+    'title' => $lang->get('mappings_edit_title'),
+    'logo' => getSetting('logo_path'),
+    'lang' => $lang,
+    'langCode' => $langCode,
+    'theme' => $theme,
     'mapping' => $mapping,
-    'odoo_fields' => $odoo_fields,
-    'message' => $message,
-    'lang' => $lang
+    'data' => $data,
+    'csv_columns' => $csv_columns,
+    'odoo_fields' => $odoo_fields
 ]);
