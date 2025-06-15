@@ -1,5 +1,5 @@
 <?php
-// admin/import_real.php — Import CSV vers Odoo (Fusion V2.5 sécurisé AES + logs)
+// admin/import_real.php — Import CSV vers Odoo (Fusion V2.5.5.2 — Sécurité relationnelle)
 
 require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/loader.php';
@@ -54,17 +54,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['csv_file'])) {
                     }
                 }
 
+                // Protection temporaire pour relations Odoo (Many2One etc.)
+                $relationFields = ['categ_id', 'taxes_id', 'attribute_line_ids'];
+                $relationError = false;
+
+                foreach ($relationFields as $field) {
+                    if (isset($data[$field]) && !is_numeric($data[$field])) {
+                        $results[] = [
+                            'success' => false,
+                            'message' => $lang->get('odoo_relation_error') . $field . ' → "' . $data[$field] . '"',
+                            'odoo_error' => 'Invalid relation field'
+                        ];
+                        $relationError = true;
+                        break;
+                    }
+                }
+
+                if ($relationError) {
+                    continue; // on saute l'envoi vers Odoo
+                }
+
+                // Protection contre les lignes vides
+                if (empty($data)) {
+                    $results[] = [
+                        'success' => false,
+                        'message' => $lang->get('mapping_no_fields_detected'),
+                        'odoo_error' => 'No valid fields mapped for this CSV row'
+                    ];
+                    continue;
+                }
+
+                // ✅ Envoi sécurisé vers Odoo
                 $results[] = sendToOdoo($odoo_url, $odoo_db, $odoo_user, $odoo_pass, $data);
             }
 
             fclose($handle);
         }
 
-        // ✅ Enregistrement du log complet en base après l'import
+        // Enregistrement des logs enrichis
         $total = count($results);
         $successCount = count(array_filter($results, fn($r) => $r['success']));
         $failCount = $total - $successCount;
         $status = ($failCount === 0) ? 'success' : 'error';
+
+        $errorSummaries = [];
+        foreach ($results as $res) {
+            if (!$res['success']) {
+                $errorSummaries[] = $res['odoo_error'] ?? 'Erreur inconnue';
+            }
+        }
 
         $stmt = $pdo->prepare("
             INSERT INTO import_logs (user_id, mapping_id, file_name, total_lines, success_lines, failed_lines, status, message, details)
@@ -72,14 +110,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['csv_file'])) {
         ");
 
         $stmt->execute([
-            $_SESSION['user']['id'],
+            $_SESSION['user_id'],
             $mappingId,
             $_FILES['csv_file']['name'],
             $total,
             $successCount,
             $failCount,
             $status,
-            $lang->get('logs_import_message_' . $status),
+            implode(" / ", $errorSummaries),
             json_encode($results, JSON_UNESCAPED_UNICODE)
         ]);
     }

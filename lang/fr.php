@@ -62,6 +62,7 @@ return [
     'mapping_saved' => 'Mapping enregistré avec succès.',
     'mapping_deleted' => 'Mapping supprimé avec succès.',
     'mapping_confirm_delete' => 'Confirmez-vous la suppression de ce mapping ?',
+    'mapping_no_fields_detected' => 'Aucun champ mappable détecté sur cette ligne.',
 
     // ---- Logs (complément) ----
     'logs_date' => 'Date',
@@ -70,6 +71,10 @@ return [
     'logs_mapping' => 'Mapping',
     'logs_status' => 'Statut',
     'logs_message' => 'Message',
+    'logs_total' => 'Total lignes',
+    'logs_success' => 'Succès',
+    'logs_failed' => 'Échecs',
+    'logs_back' => 'Retour aux logs',
 
     // ---- Settings (complément) ----
     'settings_saved' => 'Paramètres enregistrés avec succès.',
@@ -77,6 +82,7 @@ return [
     // ---- Odoo (complément) ----
     'odoo_create_success' => 'Produit créé sur Odoo',
     'odoo_auth_failed' => 'Échec d\'authentification Odoo',
-    'odoo_config_incomplete' => 'Configuration Odoo incomplète'
+    'odoo_config_incomplete' => 'Configuration Odoo incomplète',
+    'odoo_relation_error' => 'Champ relationnel invalide : '
 
 ];

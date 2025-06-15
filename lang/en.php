@@ -70,6 +70,10 @@ return [
     'logs_mapping' => 'Mapping',
     'logs_status' => 'Status',
     'logs_message' => 'Message',
+    'logs_total' => 'Total rows',
+    'logs_success' => 'Success',
+    'logs_failed' => 'Failures',
+    'logs_back' => 'Back to logs',
 
     // ---- Settings (complement) ----
     'settings_saved' => 'Settings successfully saved.',
@@ -77,6 +81,8 @@ return [
     // ---- Odoo (complement) ----
     'odoo_create_success' => 'Product created on Odoo',
     'odoo_auth_failed' => 'Odoo authentication failed',
-    'odoo_config_incomplete' => 'Odoo configuration incomplete'
+    'odoo_config_incomplete' => 'Odoo configuration incomplete',
+    'odoo_relation_error' => 'Invalid relation field: '
+
 
 ];
